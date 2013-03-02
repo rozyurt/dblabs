@@ -1,0 +1,15 @@
+1 - select id, name FROM "books" WHERE "books"."publisher_id" = 1 order by year;
+2 - select publishers.name as publisher, books.name as book_name, books.year FROM "books" INNER JOIN "publishers" ON "publishers"."id" = "books"."publisher_id" order by publishers.name, year;
+3 -  select publishers.name as publisher, count(*) as book_count FROM "books" INNER JOIN "publishers" ON "publishers"."id" = "books"."publisher_id" group by publishers.name;
+! 4 - select publishers.name as publisher, count(*) as book_count FROM "books" INNER JOIN "publishers" ON "publishers"."id" = "books"."publisher_id" where((books.year between 1900 and 2002)) group by publishers.name;
+5 - select name FROM books order by price desc limit 10;
+! 6 - SELECT publishers.name as publisher FROM "books" INNER JOIN "publishers" ON "publishers"."id" = "books"."publisher_id" where((books.year between 1900 and  2002)) GROUP BY publishers.name;
+! 7 - SELECT publishers.name, count(*) as book_count FROM "books" INNER JOIN "publishers" ON "publishers"."id" = "books"."publisher_id" WHERE (year > 2007) GROUP BY publishers.name;
+8 - select name from books where first_author = (select first_author FROM books group by books.first_author order by count(*) desc limit 1);
+9 - select name from books where price > (SELECT avg(price) as price FROM books);
+10 -  Subject.all(joins: [students: :department] , conditions: { stitle: 'Veritabanı', departments: { name: "Bilgisayar Mühendisliği"}}, select: "students.name");
+11 - SELECT students.name as student, departments.name department FROM "subjects" INNER JOIN "studies" ON "studies"."subject_id" = "subjects"."id" INNER JOIN "students" ON "students"."id" = "studies"."student_id" INNER JOIN "departments" ON "departments"."id" = "students"."department_id" INNER JOIN "buys" ON "buys"."student_id" = "students"."id" INNER JOIN "books" ON "books"."id" = "buys"."book_id" WHERE "subjects"."stitle" = 'Ağlar' AND (subjects.stitle = 'Ağlar' and subjects.id = books.subject_id and departments.name != 'Bilgisyaar Mühendisliği');
+12 - SELECT students.name FROM "students" INNER JOIN "studies" ON "studies"."student_id" = "students"."id" INNER JOIN "buys" ON "buys"."student_id" = "students"."id" INNER JOIN "books" ON "books"."id" = "buys"."book_id" WHERE (studies.student_id = buys.student_id);
+13 - SELECT books.name FROM "subjects" INNER JOIN "covers" ON "covers"."subject_id" = "subjects"."id" INNER JOIN "books" ON "books"."id" = "covers"."book_id" WHERE (books.name = 'Veritabanı') ORDER BY books.id desc LIMIT 1;
+! 14 - SELECT buys.student_id, sum(price) as price FROM "books" INNER JOIN "buys" ON "buys"."book_id" = "books"."id" where price > 40 group by buys.student_id;
+15 - SELECT "books".* FROM "books" LIMIT 10 OFFSET 10
